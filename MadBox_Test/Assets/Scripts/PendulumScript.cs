@@ -9,18 +9,20 @@ public class PendulumScript : MonoBehaviour
         X_AXIS,
         Z_AXIS
     }
+
+    //Used to change the movement direction
     public Axis movementAxis = Axis.X_AXIS;
+
+    //Max movement distance & movement speed
     public float maxDist = 10.0f;
     public float speed = 10.0f;
 
     Vector3 initialPosition;
-    // Start is called before the first frame update
     void Start()
     {
         initialPosition = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 moveVector = Vector3.right;
@@ -37,6 +39,7 @@ public class PendulumScript : MonoBehaviour
                 }
                 break;
         }
+        //Move in a sinusoidal function
         transform.position = initialPosition + moveVector * maxDist * Mathf.Sin(Time.time * speed);
     }
 }

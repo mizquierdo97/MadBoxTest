@@ -5,23 +5,31 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 public class ScoreManager : MonoBehaviour
 {
+    //LIVES
     public int maxLives = 3;
     int lives;
+
+    //TIME
     float time = 0.0f;
+
+    //UI STUFF
     public Text livesText;
     public Text timeText;
     public Text finalScoreText;
     public GameObject finalScore;
+
     public bool isGameActive = true;
 
+    //EVENTS
     public UnityEvent OnResetLevel;
-    //Singleton
+
+    //SINGLETON
     private static ScoreManager _instance;
     public static ScoreManager Instance { get { return _instance; } }
 
-
     private void Awake()
     {
+        //Initializa Singleton
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -44,6 +52,8 @@ public class ScoreManager : MonoBehaviour
             time += Time.deltaTime;
         UpdateTime();
     }
+
+    //Show/Hide Final Score Image
     public void ShowScore()
     {
         finalScore.SetActive(true);
@@ -55,6 +65,8 @@ public class ScoreManager : MonoBehaviour
         finalScore.SetActive(false);
         ResetLevel();
     }
+    //------
+
     public void ResetLevel()
     {
         isGameActive = true;
@@ -70,6 +82,7 @@ public class ScoreManager : MonoBehaviour
         if (lives <= 0)
             ResetLevel();
     }
+    //Update the score Texts
     void UpdateLives()
     {
         livesText.text = "Lives: " + lives.ToString();
@@ -82,16 +95,12 @@ public class ScoreManager : MonoBehaviour
     {
         finalScoreText.text = "Time: " + CalculateTimeString() + "    " + "Lives: " + lives.ToString();
     }
+    //-----
     string CalculateTimeString()
     {
         string minutes = Mathf.Floor(time / 60).ToString("00");
         string seconds = (time % 60).ToString("00");
         
         return minutes + ":" + seconds;
-    }
-
-    int GetLives()
-    {
-        return lives;
     }
 }

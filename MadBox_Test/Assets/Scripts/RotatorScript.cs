@@ -14,6 +14,7 @@ public class RotatorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Just rotate the full gameobject :)
         transform.Rotate(Vector3.up, speed * Time.deltaTime);
     }
 }
